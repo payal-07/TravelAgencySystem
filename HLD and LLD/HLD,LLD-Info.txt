@@ -1,0 +1,99 @@
+ High-Level Design (HLD):
+
+ Modules/Components:
+
+1. Travel Package Management:
+   - Manages a collection of travel packages.
+   - Add, remove, and retrieve travel packages.
+   - Print itinerary and passenger lists for all travel packages.
+
+2. Travel Package:
+   - Represents a specific travel package.
+   - Contains a name, passenger capacity, itinerary (list of destinations), and a list of passengers.
+   - Allows signing up passengers for activities.
+
+3. Destination:
+   - Represents a destination in a travel package.
+   - Contains a name and a list of activities available at that destination.
+   - Allows adding and removing activities.
+
+4. Activity:
+   - Represents an activity available at a destination.
+   - Contains a name, description, cost, capacity, and reference to the destination.
+   - Allows signing up passengers for the activity.
+   - Provides information about available spaces.
+
+5. Passenger:
+   - Represents an individual passenger.
+   - Contains a name, passenger number, type (standard, gold, premium), balance, and a list of signed-up activities.
+   - Allows signing up for activities and deducts the cost from the balance.
+
+6. Travel Package Manager:
+   - Manages a collection of travel packages.
+   - Add, remove, and retrieve travel packages.
+   - Print itinerary and passenger lists for all travel packages.
+
+ Interactions:
+
+- The Travel Package Management module interacts with individual Travel Package instances.
+- Travel Package interacts with Destination, Activity, and Passenger instances.
+- Activity interacts with Passenger instances for sign-up.
+- Passenger interacts with Activity instances for signing up and deducting balance.
+
+ Low-Level Design (LLD):
+
+ Class Structure:
+
+1. TravelPackageManager:
+   - Properties: `List<TravelPackage>`
+   - Methods: `addPackage()`, `removePackage()`, `getPackage()`, `printItinerary()`, `printPassengerList()`
+
+2. TravelPackage:
+   - Properties: `name`, `passengerCapacity`, `List<Destination>`, `List<Passenger>`
+   - Methods: `addDestination()`, `removeDestination()`, `getDestination()`, `signUpForActivity()`, `printItinerary()`, `printPassengerList()`
+
+3. Destination:
+   - Properties: `name`, `List<Activity>`
+   - Methods: `addActivity()`, `removeActivity()`, `getActivity()`, `printDetails()`
+
+4. Activity:
+   - Properties: `name`, `description`, `cost`, `capacity`, `Destination`, `List<Passenger>`
+   - Methods: `signUpPassenger()`, `calculateDiscountedCost()`, `checkAvailability()`, `printDetails()`
+
+5. Passenger:
+   - Properties: `name`, `passengerNumber`, `type`, `balance`, `List<Activity>`
+   - Methods: `signUpForActivity()`, `calculateCostForActivity()`, `deductBalance()`, `printDetails()`
+
+ Class Interactions:
+
+- `TravelPackageManager` manages a list of `TravelPackage` instances.
+- `TravelPackage` manages destinations, passengers, and interactions with them.
+- `Destination` manages activities and interactions with them.
+- `Activity` manages signed-up passengers and interactions with them.
+- `Passenger` interacts with activities for sign-up and balance deduction.
+
+ Flow of Control:
+
+1. Travel Package Management:
+   - Manages a collection of travel packages.
+   - Allows adding, removing, and retrieving travel packages.
+   - Provides methods to print the itinerary and passenger lists for all travel packages.
+
+2. Travel Package:
+   - Manages destinations, passengers, and their interactions.
+   - Allows signing up passengers for activities.
+   - Provides methods to print the itinerary and passenger list for a specific travel package.
+
+3. Destination:
+   - Manages activities and their interactions.
+   - Provides methods to print details of activities at the destination.
+
+4. Activity:
+   - Manages signed-up passengers and interactions with them.
+   - Provides methods to sign up passengers and print details of the activity.
+
+5. Passenger:
+   - Interacts with activities for signing up and balance deduction.
+   - Provides methods to sign up for activities and print details.
+
+This design separates concerns, making the system modular and maintainable. Each component has specific responsibilities, facilitating easy testing and scalability. The interactions are defined to ensure proper flow of control within the system.
